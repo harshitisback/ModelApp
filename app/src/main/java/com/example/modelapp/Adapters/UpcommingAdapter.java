@@ -35,7 +35,7 @@ public class UpcommingAdapter extends RecyclerView.Adapter<UpcommingAdapter.View
 
     @Override
     public void onBindViewHolder(@NonNull UpcommingAdapter.ViewHolder holder, int position) {
-        Glide.with(context).load(upcommingModelList.get(position).getImg_url()).into(holder.eventImg);
+        Glide.with(context).load(upcommingModelList.get(position).getUrlImg()).into(holder.eventImg);
         holder.name.setText(upcommingModelList.get(position).getName());
         holder.date.setText(upcommingModelList.get(position).getDate());
         holder.mode.setText(upcommingModelList.get(position).getMode());

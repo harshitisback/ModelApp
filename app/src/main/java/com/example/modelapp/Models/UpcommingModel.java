@@ -7,6 +7,7 @@ public class UpcommingModel {
     String urlImg;
 
     public UpcommingModel() {
+
     }
 
     public UpcommingModel(String name, String mode, String date, String urlImg) {
@@ -40,11 +41,12 @@ public class UpcommingModel {
         this.date = date;
     }
 
-    public String getImg_url() {
+    public String getUrlImg() {
         return urlImg;
     }
 
-    public void setImg_url(String img_url) {
-        this.urlImg = img_url;
+    public void setUrlImg(String urlImg) {
+        this.urlImg = urlImg;
     }
 }
+
