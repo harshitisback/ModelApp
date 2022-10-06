@@ -12,8 +12,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.modelapp.Adapters.OngoingAdapter;
+import com.example.modelapp.Adapters.PastEventAdapter;
 import com.example.modelapp.Adapters.UpcommingAdapter;
 import com.example.modelapp.Models.OngoingModel;
+import com.example.modelapp.Models.PastEventModel;
 import com.example.modelapp.Models.UpcommingModel;
 import com.example.modelapp.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -29,6 +31,7 @@ public class HomeFragment extends Fragment {
 
     RecyclerView up_rec;
     RecyclerView on_rec;
+    RecyclerView past_rec;
     FirebaseFirestore db;
 
     public  HomeFragment() {
@@ -45,6 +48,10 @@ public class HomeFragment extends Fragment {
     List<OngoingModel> ongoingModelList;
     OngoingAdapter ongoingAdapter;
 
+    // past events
+    List<PastEventModel> pastEventModelList;
+    PastEventAdapter pastEventAdapter;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
@@ -54,6 +61,7 @@ public class HomeFragment extends Fragment {
 
         up_rec = root.findViewById(R.id.upc_rec);
         on_rec = root.findViewById(R.id.ongoing_rec);
+        past_rec = root.findViewById(R.id.past_rec);
 
         // upcomiing evets set
         up_rec.setLayoutManager(new LinearLayoutManager(getActivity(),RecyclerView.HORIZONTAL,false));
@@ -96,6 +104,29 @@ public class HomeFragment extends Fragment {
                                 OngoingModel ongoingModel = document.toObject(OngoingModel.class);
                                 ongoingModelList.add(ongoingModel);
                                 ongoingAdapter.notifyDataSetChanged();
+                            }
+                        } else {
+                            Toast.makeText(getActivity(), "Error", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
+// past event set
+        past_rec.setLayoutManager(new LinearLayoutManager(getActivity(),RecyclerView.HORIZONTAL,false));
+        pastEventModelList = new ArrayList<>();
+        pastEventAdapter = new PastEventAdapter(getActivity(),pastEventModelList);
+        past_rec.setAdapter(pastEventAdapter);
+
+        db.collection("PastEvents")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                PastEventModel pastEventModel = document.toObject(PastEventModel.class);
+                                pastEventModelList.add(pastEventModel);
+                                pastEventAdapter.notifyDataSetChanged();
                             }
                         } else {
                             Toast.makeText(getActivity(), "Error", Toast.LENGTH_SHORT).show();
