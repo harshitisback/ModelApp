@@ -67,7 +67,7 @@ public class HomeFragment extends Fragment {
         up_rec.setLayoutManager(new LinearLayoutManager(getActivity(),RecyclerView.HORIZONTAL,false));
         upcommingModelList = new ArrayList<>();
         upcommingAdapter = new UpcommingAdapter(getActivity(),upcommingModelList);
-        up_rec.setAdapter(upcommingAdapter);
+        past_rec.setAdapter(upcommingAdapter);
 
         db.collection("UpcommingEvents")
                 .get()
@@ -115,7 +115,7 @@ public class HomeFragment extends Fragment {
         past_rec.setLayoutManager(new LinearLayoutManager(getActivity(),RecyclerView.HORIZONTAL,false));
         pastEventModelList = new ArrayList<>();
         pastEventAdapter = new PastEventAdapter(getActivity(),pastEventModelList);
-        past_rec.setAdapter(pastEventAdapter);
+        up_rec.setAdapter(pastEventAdapter);
 
         db.collection("PastEvents")
                 .get()
